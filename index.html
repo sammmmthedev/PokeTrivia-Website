@@ -1,3 +1,144 @@
-<p>Test</p>
-<p class="demoTitle">&nbsp;</p>
-<p style="text-align: center;">&nbsp;</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PokéTrivia</title>
+<meta name="description" content="Two Pokémon trivia games in one app — buzz-in multiplayer Type Clash and a solo Pokédex crossword.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0d0e12;
+    --panel:#15171e;
+    --panel-2:#1b1e27;
+    --seam:#2a2d38;
+    --ink:#f2f0e8;
+    --ink-dim:#9a9ba6;
+    --accent:#ffd23f;
+    --mono:'Space Mono', monospace;
+    --disp:'Rajdhani', sans-serif;
+  }
+  *{ box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  html,body{
+    margin:0; padding:0; min-height:100%; width:100%;
+    background:var(--bg); color:var(--ink);
+    font-family:var(--disp);
+  }
+
+  .page{
+    min-height:100vh; width:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:32px 20px 24px;
+    gap:18px;
+    text-align:center;
+  }
+
+  .title{
+    font-size:52px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--accent); margin:0;
+  }
+
+  .tagline{
+    font-family:var(--mono); font-size:13px; color:var(--ink-dim);
+    letter-spacing:.04em; margin:-6px 0 4px;
+  }
+
+  .description{
+    font-size:17px; line-height:1.6; color:var(--ink);
+    max-width:440px; margin:0 0 6px;
+  }
+
+  /* Type-color strip — a small nod to the app's own mechanic, no functional role */
+  .type-strip{ display:flex; gap:6px; flex-wrap:wrap; justify-content:center; max-width:420px; margin-bottom:8px; }
+  .type-chip{
+    font-family:var(--disp); font-weight:700; font-size:10px; letter-spacing:.05em;
+    padding:4px 10px; border-radius:10px; color:#0d0e12; text-transform:uppercase;
+  }
+
+  .download-row{
+    display:flex; gap:14px; width:100%; max-width:420px; justify-content:center;
+    margin-top:8px;
+  }
+  .download-btn{
+    flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:2px; padding:16px 12px; border-radius:14px; text-decoration:none;
+    font-family:var(--disp); font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    cursor:pointer; border:none; transition:transform .12s ease;
+  }
+  .download-btn:active{ transform:scale(.97); }
+  .download-btn .platform{ font-size:16px; }
+  .download-btn .sub{ font-family:var(--mono); font-weight:400; font-size:10px; letter-spacing:.06em; text-transform:none; }
+
+  .download-btn.ios{ background:var(--panel-2); color:var(--ink); border:1px solid var(--seam); }
+  .download-btn.android{ background:var(--accent); color:#0d0e12; }
+
+  .copyright-text{
+    font-family:var(--mono); font-size:10px; color:var(--ink-dim); text-align:center;
+    max-width:340px; line-height:1.6; margin-top:22px;
+  }
+
+  .privacy-link{
+    font-family:var(--mono); font-size:11px; color:var(--ink-dim);
+    text-decoration:underline; margin-top:10px;
+  }
+  .privacy-link:hover{ color:var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <h1 class="title">PokéTrivia</h1>
+  <div class="tagline">Two games. One Pokédex.</div>
+
+  <p class="description">
+    Buzz in against up to 12 friends in <strong>Type Clash</strong>, a real-time
+    multiplayer showdown where you race to name a Pokémon matching two rolled
+    types — or go solo with an auto-generated <strong>Crossword</strong>, clued
+    entirely by official Pokédex entries.
+  </p>
+
+  <div class="type-strip" id="typeStrip"></div>
+
+  <div class="download-row">
+    <a class="download-btn ios" href="#" id="iosLink">
+      <span class="platform">iOS</span>
+      <span class="sub">Download on the App Store</span>
+    </a>
+    <a class="download-btn android" href="https://play.google.com/store/apps/details?id=com.poketrivia.app" id="androidLink">
+      <span class="platform">Android</span>
+      <span class="sub">Get it on Google Play</span>
+    </a>
+  </div>
+
+  <div class="copyright-text">
+    Pokémon and all Pokémon character names are trademarks of Nintendo, Game
+    Freak, and Creatures Inc. This is an unofficial, non-commercial fan
+    project — all Pokémon content, names, and imagery are property of their
+    respective owners.
+  </div>
+
+  <a class="privacy-link" href="privacypolicy/privacypolicy.html">Privacy Policy</a>
+</div>
+
+<script>
+  // Small decorative strip of type badges, reusing the app's own type palette.
+  const TYPE_COLORS = {
+    normal:'#A8A878', fighting:'#C03028', flying:'#A890F0', poison:'#A040A0',
+    ground:'#E0C068', rock:'#B8A038', bug:'#A8B820', ghost:'#705898',
+    steel:'#B8B8D0', fire:'#F08030', water:'#6890F0', grass:'#78C850',
+    electric:'#F8D030', psychic:'#F85888', ice:'#98D8D8', dragon:'#7038F8',
+    dark:'#705848', fairy:'#EE99AC'
+  };
+  const strip = document.getElementById('typeStrip');
+  Object.entries(TYPE_COLORS).forEach(([name, color]) => {
+    const chip = document.createElement('span');
+    chip.className = 'type-chip';
+    chip.style.background = color;
+    chip.textContent = name;
+    strip.appendChild(chip);
+  });
+</script>
+
+</body>
+</html>
