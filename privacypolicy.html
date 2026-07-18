@@ -17,7 +17,7 @@
 <p class="font-claude-response-body break-words whitespace-normal" data-sourcepos="40:1-42:31;1628-1801">If you use the microphone button to answer by voice instead of typing, your spoken audio is processed in one of two ways depending on how this copy of the App is configured:</p>
 <ul class="[li_&amp;]:mb-0 [li_&amp;]:mt-1 [li_&amp;]:gap-1 [&amp;:not(:last-child)_ul]:pb-1 [&amp;:not(:last-child)_ol]:pb-1 list-disc flex flex-col gap-1 pl-8 mb-3" data-sourcepos="44:1-55:18;1803-2569">
 <li class="font-claude-response-body whitespace-normal break-words pl-2" data-sourcepos="44:1-48:29;1803-2125"><strong>Browser-based recognition:</strong> your device's browser sends the audio directly to its own built-in speech recognition service (for example, Google's speech service in Chrome, or Apple's in Safari) to convert it to text. The App itself never receives or stores the raw audio in this case &mdash; only the resulting text.</li>
-<li class="font-claude-response-body whitespace-normal break-words pl-2" data-sourcepos="49:1-55:18;2126-2569"><strong>Cloud-based recognition:</strong> your audio is uploaded to a server we operate (a Firebase Cloud Function) which forwards it to [Google Cloud Speech-to-Text / AssemblyAI &mdash; specify whichever you actually deployed] for transcription, then returns the resulting text to your device. The audio is not stored by our server; any retention of the audio by the transcription provider itself is governed by that provider's own privacy policy.</li>
+<li class="font-claude-response-body whitespace-normal break-words pl-2" data-sourcepos="49:1-55:18;2126-2569"><strong>Cloud-based recognition:</strong> your audio is uploaded to a server we operate (a Firebase Cloud Function) which forwards it to Google Cloud Speech-to-Text for transcription, then returns the resulting text to your device. The audio is not stored by our server; any retention of the audio by the transcription provider itself is governed by that provider's own privacy policy.</li>
 </ul>
 <p class="font-claude-response-body break-words whitespace-normal" data-sourcepos="57:1-58:68;2571-2711">Either way, voice input is entirely optional &mdash; every answer can be typed instead, and the App works fully without ever using the microphone.</p>
 <h2 class="text-text-100 mt-3 -mb-1 text-[1.125rem] font-bold" data-sourcepos="60:1-60:27;2713-2739">How Information Is Used</h2>
@@ -54,7 +54,7 @@
 <td class="border-b-0.5 border-[hsl(var(--border-300)/0.3)] py-2 pr-4 align-top">Loading the App's typefaces</td>
 </tr>
 <tr>
-<td class="border-b-0.5 border-[hsl(var(--border-300)/0.3)] py-2 pr-4 align-top">[Google Cloud Speech-to-Text / AssemblyAI]</td>
+<td class="border-b-0.5 border-[hsl(var(--border-300)/0.3)] py-2 pr-4 align-top">Google Cloud Speech-to-Text</td>
 <td class="border-b-0.5 border-[hsl(var(--border-300)/0.3)] py-2 pr-4 align-top">Converting spoken answers to text, if voice input is used and configured</td>
 </tr>
 </tbody>
